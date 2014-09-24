@@ -18,8 +18,11 @@ Call graph difference between source code versions
 
 ## 文件家内容
 get_diff_SQL 把diff结果放入数据库的脚本
+
 merge_graph  生成不同的graph图，合并，附加差异的脚本
+
 draw_SVG_workplace  画SVG图的工作位置
+
 function_diff  画函数差异html的脚本
 
 
