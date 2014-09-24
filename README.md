@@ -16,7 +16,7 @@ Call graph difference between source code versions
 ### 所需条件
 数据库已经存在linux函数列表
 
-## 部署画图所需的基础
+## 部署画图所需的基础：Mkdiff.rb执行下面的步骤
 
 ### 一、使用git diff
 获取源代码下两版本差异，保存至文件con，放置工作目录下
