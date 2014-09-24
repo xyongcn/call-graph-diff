@@ -16,7 +16,7 @@ Call graph difference between source code versions
 ### 所需条件
 数据库已经存在linux函数列表
 
-## 文件家内容
+## 文件夹内容
 get_diff_SQL 把diff结果放入数据库的脚本
 
 merge_graph  生成不同的graph图，合并，附加差异的脚本
