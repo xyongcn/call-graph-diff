@@ -83,4 +83,7 @@ ruby getFileName.rb
 
 ruby rfun.rb arch/x86/kernel/cpu/mcheck/mce.c machine_check_poll /home/20140721-gitdiff脚本/src linux-3.8 linux-3.5.4 new.html
 
-
+### 自动部署演示
+ruby Mkdiff.rb
+### 自动画图
+ruby auto_diff_graph.rb aaa.graph ccc.graph plugin/zzz.graph diff_linux-3.5.4_linux-3.8 diffpath_linux-3.5.4_linux-3.8
