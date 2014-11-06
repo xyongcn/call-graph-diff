@@ -63,7 +63,7 @@ input2中是＋的内容，也就是后面的版本多的部分
 
 说明：rpath.rb也是对最原始的差异文件con进行处理，要计算出每一个文件中修改的行数，存到rpath中。
 
-运行ruby cpath.rb rpath linux-3.5.4 linux-3.8（ruby cpath.rb rpath 存入差异数据库表diffpath_linux-3.5.4_linux-3.8）
+运行ruby cpath.rb rpath linux-3.5.4 linux-3.8.13（ruby cpath.rb rpath 存入差异数据库表diffpath_linux-3.5.4_linux-3.8.13）
 
 说明：cpath.rb根据rpath保存的文件差异，来算出对应路径下的差异总和，然后按路径对应差异数目存入数据库中。
 
@@ -96,7 +96,7 @@ ruby function_call.rb ccc.grapht aaa.grapht > zzz.graph
 ### 三、生成SVG图
 将结果放到getFileName.rb同目录下，对graph的矩阵图生成SVG，依次调用dot.rb、th_pic.rb、node.rb、edge.rb、svg.rb，动态菜单模式在该目录下的th_plugin中，script1、layer1是点击菜单，script3、layer3是浮动菜单。
 
-ruby getFileName.rb
+ruby getFileName.rb zzz_done.svg
 
 ## 比较函数内容
 
