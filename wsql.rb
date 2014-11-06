@@ -1,6 +1,7 @@
 begin
-	tablename = "`#{ARGV[0]}`"
-	tablename1 = "`#{ARGV[1]}`"
+	tablename = "`#{ARGV[1]}_R_x86_32_FDLIST`"
+        tablename1 = "`diff_#{ARGV[0]}_#{ARGV[1]}`"
+
 	require "mysql"
 	dbh = Mysql.real_connect("localhost", "cgrtl", "9-410", "callgraph")
 rescue MysqlError => e
@@ -14,36 +15,33 @@ end
 	tvar = 0
 	File.open("input2","r") do |file|
 	while line  = file.gets
-		if line[0,1] == "a" and line.include?".c" and !line.include?"arm" and !line.include?"linux/drivers" and !line.include?"linux/include"
+		
+		if line.include?"#{ARGV[1]}" and line.include?".c" and !line.include?"arm" and !line.include?"#{ARGV[1]}/drivers" and !line.include?"#{ARGV[1]}/include"
 			flag = 1
-			l = line.length - 9
-			path = "\"%" + line[8,l] + "%\""
-			path1 = line[8,l]	
-		elsif line[0,1] == "b" and line.include?".c" and !line.include?"arm" and !line.include?"linux/drivers" and !line.include?"linux/include"
-			flag = 1
-                        l = line.length - 9
-                        path = "\"%" + line[8,l] + "%\""
-                        path1 = line[8,l]
-                elsif flag == 1 and line[0,1] != "a" and line[0,1] != "b"
+			path1 = line.gsub("/mnt/freenas/source-code/#{ARGV[1]}/","")
+                        path1 = path1.gsub("\n","")
+                        path =  path1	
+		elsif flag == 1 and !line.include?"#{ARGV[1]}"
                         tmp1 = line[1,15].split(",")
-                        line_d = tmp1[0].to_i + 2
-                        line_r = line_d + tmp1[1].to_i - 2
+                        line_d = tmp1[0].to_i + 3
+                        line_r = line_d + tmp1[1].to_i - 3
                         varnum = file.gets.to_i
                         #printf "%s %d %d\n",path,line_d,line_r
                         #数据库检索
-                        res = dbh.query("select startline,endline,name from " + tablename + " where startline like " + path)
+		#	puts "select f_dline,f_rline,f_name from " + tablename + " where f_dline = \"#{path}\""
+                        res = dbh.query("select f_dline,f_rline,f_name from " + tablename + " where f_dfile = \"#{path}\"")
                         while row = res.fetch_hash do
-				f_dline = row["startline"].split(":")[1].to_i
-				f_rline = row["endline"].split(":")[1].to_i
+				f_dline = row["f_dline"].to_i
+                                f_rline = row["f_rline"].to_i
                         	#printf "%d %d\n ",f_dline,f_rline
 			        if line_d >= f_dline and  line_r <= f_rline
-                                        printf "--%s %s %d\n",path1,row["name"],varnum
+                                        printf "--%s %s %d\n",path1,row["f_name"],varnum
 
 					if tpath == ""
                                                 tpath = path1
-                                                tfun = row["name"]
+                                                tfun = row["f_name"]
                                         end
-                                        if tpath == path1 and tfun == row["name"]
+                                        if tpath == path1 and tfun == row["f_name"]
                                                 tvar = tvar + varnum
                                         elsif tpath != ""
 						flag1 = 0						
@@ -57,18 +55,18 @@ end
 						end
                                                 tvar = varnum
                                                 tpath = path1
-                                                tfun = row["name"]
+                                                tfun = row["f_name"]
                                         end
 					
 
                                 elsif (line_d <= f_dline and  line_r > f_rline) or (line_d < f_dline and line_r >= f_rline)
-					printf "++%s %s %d\n",path1,row["name"],f_rline - f_dline
+					printf "++%s %s %d\n",path1,row["f_name"],f_rline - f_dline
 					tvar1 = f_rline - f_dline
 					flag1 = 0						
-					res2 = dbh.query("SELECT * FROM " + tablename1 + " where path = '" + path1 + "' and fname = '" + row["name"] +"'")
+					res2 = dbh.query("SELECT * FROM " + tablename1 + " where path = '" + path1 + "' and fname = '" + row["f_name"] +"'")
 					res2.each_hash do |row1|
 						flag1 = 1
-						dbh.query("UPDATE " + tablename1 +" SET addline = '" + tvar.to_s + "' where path = '" + path1 + "' and fname = '" + row["name"] + "'")
+						dbh.query("UPDATE " + tablename1 +" SET addline = '" + tvar.to_s + "' where path = '" + path1 + "' and fname = '" + row["f_name"] + "'")
 					end
 					if flag1 == 0 
 						dbh.query("insert into " + tablename1 +" VALUES('" + path1 + "','" + tfun + "','" + tvar1.to_s + "','0','0')")

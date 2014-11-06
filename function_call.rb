@@ -2,8 +2,8 @@ require 'find'
 require 'mysql'
 
 $mydb=Mysql.connect('localhost', 'cgrtl', '9-410', 'callgraph')
-$sql_fdifflist = "diff_linux-3.5.4_linux-3.8"
-$sql_filedifflist = "diffpath_linux-3.5.4_linux-3.8"
+$sql_fdifflist = ""
+$sql_filedifflist = ""
 $addline_num = ""
 $subline_num = ""
 $filenum = ""
@@ -13,7 +13,7 @@ filename=""
 filename=Array.new(10)
 i=0
 $maxpercent = 0
-
+$percent = 0
 def find(s,b) 
 	b=b[0] 
 	i=0 
@@ -71,8 +71,8 @@ def modify_node(str)
 	#puts tip[3]	
 	time = tip[3].slice(/[0-9]+/)
 
-	
-	newtip = "#{time},+#{$addline_num},-#{$subline_num}"
+	temp = ($percent*100).to_i
+	newtip = "#{time},+#{$addline_num},-#{$subline_num},#{temp}%"
 	str = str.gsub(tip[3],newtip)
 	return str
 end
@@ -98,15 +98,15 @@ def compute_max(f0,f1)
 
 		flag = func(temp0[0])
 		if flag == 0
-			percent = 0
+			$percent = 0
 		elsif $filenum != 0
-			percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
+			$percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
 		end
-		if $maxpercent < percent && percent!=1.0
-			$maxpercent = percent
+		if $maxpercent < $percent && $percent!=1.0
+			$maxpercent = $percent
 		end
 		line0 = file0.gets
-		#puts temp0[0],percent
+		#puts temp0[0],$percent
 	end
 	while line1.index("->") == nil       	 	
 	
@@ -115,12 +115,12 @@ def compute_max(f0,f1)
 
 		flag = func(temp1[0])
 		if flag == 0
-                        percent = 0
+                        $percent = 0
 		elsif $filenum != 0
-			percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
+			$percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
 		end
-		if $maxpercent < percent && percent!=1.0
-			$maxpercent = percent
+		if $maxpercent < $percent && $percent!=1.0
+			$maxpercent = $percent
 		end
 		line1 = file1.gets
 		
@@ -137,6 +137,9 @@ ARGV.each do|arg|
 filename[i]=arg
 i=i+1
 end
+$sql_fdifflist = ARGV[2]
+$sql_filedifflist = ARGV[3]
+#puts $sql_fdifflist,$sql_filedifflist
 compute_max(filename[0],filename[1])
 file0 = File.new(filename[0],"r")
 file1 = File.new(filename[1],"r")
@@ -163,28 +166,29 @@ while (line0.index("->") == nil) && (line1.index("->") == nil)
 
 	if (temp0[0] <=> temp1[0]) == 0
 		flag = func(temp0[0])
-		line0 = modify_node(line0)
+		
 		if $filenum != 0
-			percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
+			$percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
 		elsif flag == 0
-			percent = 0
+			$percent = 0
 		else
-			percent = 1.0
+			$percent = 1.0
 		end
+		line0 = modify_node(line0)
                 $addline_num = 0
                 $subline_num = 0
 		$filenum = 0
-
-		if percent < ($maxpercent * 0.2)
-			line0 = line0.gsub(/cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange/,"\"#DDDDDD\"")
-		elsif percent < ($maxpercent * 0.4)
-			line0 = line0.gsub(/cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange/,"\"#BBBBBB\"")
-		elsif percent < ($maxpercent * 0.6)
-			line0 = line0.gsub(/cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange/,"\"#999999\"")
-		elsif percent < ($maxpercent * 0.8)
-			line0 = line0.gsub(/cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange/,"\"#777777\"")
+		
+		if $percent < ($maxpercent * 0.2)
+			line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#DDDDDD\"")
+		elsif $percent < ($maxpercent * 0.4)
+			line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#BBBBBB\"")
+		elsif $percent < ($maxpercent * 0.6)
+			line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#999999\"")
+		elsif $percent < ($maxpercent * 0.8)
+			line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#777777\"")
 		else
-			line0 = line0.gsub(/cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange/,"\"#555555\"")
+			line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#555555\"")
 		end
 
 
@@ -192,25 +196,26 @@ while (line0.index("->") == nil) && (line1.index("->") == nil)
 		line0 = file0.gets
 		line1 = file1.gets
 	elsif (temp0[0] <=> temp1[0]) > 0 #把后一个版本的顶点值换掉
-		#func(temp1[0])
-		#line1 = modify_node(line1)
-                $addline_num = 0
+		func(temp1[0])
+		$percent = 1
+		line1 = modify_node(line1)
+		$addline_num = 0
                 $subline_num = 0
 		$filenum = 0
-
-		line1 = line1.gsub(/cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange/,"green")
+		line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=green")
 		puts line1
 		line1 = file1.gets
 	end
 	
 	if (temp0[0] <=> temp1[0]) < 0
 		func(temp0[0])
-		line0 = modify_node(line0)
+		$percent = 1
                 $addline_num = 0
+		line0 = modify_node(line0)
                 $subline_num = 0
 		$filenum = 0
-
-		line0 = line0.gsub(/cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange/,"red")
+		
+		line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=red")
 		puts line0
 		line0 = file0.gets
 	end
@@ -218,19 +223,24 @@ end
 
 while line0.index("->") == nil
 	func(temp0[0])
-	line0 = modify_node(line0)
+	$percent = 1
+
         $addline_num = 0
+	line0 = modify_node(line0)
+
         $subline_num = 0
-	line0 = line0.gsub(/cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange/,"red")
+	
+	line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=red")
 	puts line0
 	line0 = file0.gets
 end
 while line1.index("->") == nil
-	#func(temp1[0])
-	#line1 = modify_node(line1)
-        $addline_num = 0
+	func(temp1[0])
+	$percent = 1
+	line1 = modify_node(line1)
+	line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=green")
+	$addline_num = 0
         $subline_num = 0
-	line1 = line1.gsub(/cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange/,"green")
 	puts line1
 	line1 = file1.gets
 end
@@ -255,11 +265,11 @@ while (line0.index("}") == nil) && (line1.index("}") == nil)
 		newline = line0.gsub(lab0[1],str)
 
 		if snum > 0
-			newline = newline.gsub(/black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta/,"green")
+			newline = newline.gsub(/color=(black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta)/,"color=green")
 		elsif snum < 0
-			newline = newline.gsub(/black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta/,"red")
+			newline = newline.gsub(/color=(black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta)/,"color=red")
 		else
-			newline = newline.gsub(/black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta/,"black")
+			newline = newline.gsub(/color=(black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta)/,"color=black")
 		end
 		puts newline
 		line0 = file0.gets
@@ -276,7 +286,7 @@ while (line0.index("}") == nil) && (line1.index("}") == nil)
 		str = "0(#{snum}),0(#{dnum})"
 		
 		newline = line1.gsub(lab1[1],str)
-		newline = newline.gsub(/black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta/,"green")
+		newline = newline.gsub(/color=(black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta)/,"color=green")
 		puts newline
 		line1 = file1.gets
 	else
@@ -291,7 +301,7 @@ while (line0.index("}") == nil) && (line1.index("}") == nil)
 		str = "#{snum}(0),#{dnum}(0)"
                 newline = line0.gsub(lab0[1],str)
 
-                newline = newline.gsub(/black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta/,"black")
+                newline = newline.gsub(/color=(black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta)/,"color=black")
                 puts newline
 		line0 = file0.gets
 	end
@@ -309,7 +319,7 @@ while line0.index("}") == nil
         str = "#{snum}(0),#{dnum}(0)"
         newline = line0.gsub(lab0[1],str)
 
-        newline = newline.gsub(/black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta/,"black")
+        newline = newline.gsub(/color=(black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta)/,"color=black")
         puts newline
 	line0 = file0.gets
 end
@@ -327,9 +337,10 @@ while line1.index("}") == nil
 	str = "0(#{snum}),0(#{dnum})"
 		
 	newline = line1.gsub(lab1[1],str)
-	newline = newline.gsub(/black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta/,"green")
+	newline = newline.gsub(/color=(black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta)/,"color=green")
 	puts newline
 
 	line1 = file1.gets
 end
 puts "}"
+
