@@ -219,8 +219,10 @@ while (line0.index("->") == nil) && (line1.index("->") == nil)
 	if (temp0[0] <=> temp1[0]) < 0
 		func(temp0[0])
 		$percent = 1
-                $addline_num = 0
+                
+		
 		line0 = modify_node(line0)
+		$addline_num = 0
                 $subline_num = 0
 		$filenum = 0
 		
@@ -232,12 +234,10 @@ end
 
 while line0.index("->") == nil
 	func(temp0[0])
-	$percent = 1
-
-        $subline_num = 0
+	$percent = 1 
 	line0 = modify_node(line0)
 	$addline_num = 0
-        
+        $subline_num = 0
 	
 	line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=red")
 	puts line0
