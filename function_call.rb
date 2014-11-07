@@ -96,13 +96,16 @@ def compute_max(f0,f1)
 		temp0 = line0.split(/\[/)		
 		temp0[0] = temp0[0].gsub("\"","")	
 
-		flag = func(temp0[0])
+		flag = func(temp0[0]) #flag is judge "have diff"
 		if flag == 0
 			$percent = 0
 		elsif $filenum != 0
 			$percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
 		end
-		if $maxpercent < $percent && $percent!=1.0
+		if $percent > 1
+			$percent = 1.0
+		end
+		if $maxpercent < $percent 
 			$maxpercent = $percent
 		end
 		line0 = file0.gets
@@ -119,7 +122,10 @@ def compute_max(f0,f1)
 		elsif $filenum != 0
 			$percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
 		end
-		if $maxpercent < $percent && $percent!=1.0
+		if $percent > 1
+			$percent = 1.0
+		end
+		if $maxpercent < $percent 
 			$maxpercent = $percent
 		end
 		line1 = file1.gets
@@ -169,6 +175,9 @@ while (line0.index("->") == nil) && (line1.index("->") == nil)
 		
 		if $filenum != 0
 			$percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
+			if $percent > 1.0
+				$percent = 1.0
+			end
 		elsif flag == 0
 			$percent = 0
 		else
@@ -225,10 +234,10 @@ while line0.index("->") == nil
 	func(temp0[0])
 	$percent = 1
 
-        $addline_num = 0
-	line0 = modify_node(line0)
-
         $subline_num = 0
+	line0 = modify_node(line0)
+	$addline_num = 0
+        
 	
 	line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=red")
 	puts line0
