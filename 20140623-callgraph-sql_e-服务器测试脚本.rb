@@ -542,8 +542,8 @@ else
    vir_temp="V"
 end
   $sql_fdlist=$version+"_"+vir_temp+"_"+$a_ver+"_FDLIST"
-  $sql_solist=$version+"_"+vir_temp+"_"+$a_ver+"_SOLIST5"
-  $sql_dolist=$version+"_"+vir_temp+"_"+$a_ver+"_DOLIST5"
+  $sql_solist=$version+"_"+vir_temp+"_"+$a_ver+"_SOLIST"
+  $sql_dolist=$version+"_"+vir_temp+"_"+$a_ver+"_DOLIST"
    $sql_dlist=$version+"_"+vir_temp+"_"+$a_ver+"_DLIST"
    $sql_slist=$version+"_"+vir_temp+"_"+$a_ver+"_SLIST"
    $sql_tlist=$version+"_"+vir_temp+"_"+$a_ver+"_S2ETimeLIST"
@@ -566,6 +566,3 @@ end
 =end
 end_time=Time.now()
 
-
-file=File.open("/home/jdi/source1/callgraph-timeinfo_e.txt","a")
-file.puts("#{$static_time}  #{$dynamic_time}  #{end_time-start_time}  #{$sline.size}")
