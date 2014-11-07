@@ -63,16 +63,16 @@ input2中是＋的内容，也就是后面的版本多的部分
 
 说明：rpath.rb也是对最原始的差异文件con进行处理，要计算出每一个文件中修改的行数，存到rpath中。
 
-运行ruby cpath.rb rpath linux-3.5.4 linux-3.8.13（ruby cpath.rb rpath 存入差异数据库表diffpath_linux-3.5.4_linux-3.8.13）
+运行ruby cpath.rb rpath linux-3.8.13 linux-3.5.4（ruby cpath.rb rpath 存入差异数据库表diffpath_linux-3.8.13_linux-3.5.4）
 
 说明：cpath.rb根据rpath保存的文件差异，来算出对应路径下的差异总和，然后按路径对应差异数目存入数据库中。
 
 路径差异信息保存完毕
 
 ### 四、获取有差异的函数名，并存入路径
-运行ruby rfile.rb linux-3.8.13 linux-3.5.4（ruby rfile.rb 比较的版本1的函数定义列表 存入差异数据库表diff_linux-3.5.4_linux-3.8.13）
+运行ruby rfile.rb linux-3.8.13 linux-3.5.4（ruby rfile.rb 比较的版本1的函数定义列表 存入差异数据库表diff_linux-3.8.13_linux-3.5.4）
 
-运行ruby wsql.rb linux-3.8.13 linux-3.5.4（ruby wsql.rb 比较的版本2的函数定义列表 存入差异数据库表diff_linux-3.5.4_linux-3.8.13）
+运行ruby wsql.rb linux-3.8.13 linux-3.5.4（ruby wsql.rb 比较的版本2的函数定义列表 存入差异数据库表diff_linux-3.8.13_linux-3.5.4）
 
 说明：rfile.rb从input1中读原版本数据减少的部分，根据函数定义列表找到所改变的函数，存到数据库表中。wsql.rb从input2中读比较版本数据多的部分，去该版本的函数定义列表中找到改变的函数，存入数据库表。
 
@@ -80,9 +80,9 @@ input2中是＋的内容，也就是后面的版本多的部分
 
 ### 一、生成两个希望比较的graph
 格式：
-ruby 20140623-callgraph-sql_e-服务器测试脚本.rb -2 /home/jdi/ysx/new/ -d mm -o /home/jdi/ysx/plugin/aaa.graph http://124.16.141.130/lxr/watchlist linux-3.5.4 x86_32 http://124.16.141.130/lxr/call real
+ruby 20140623-callgraph-sql_e-服务器测试脚本.rb -2 /home/jdi/ysx/new/ -d mm -o /home/jdi/ysx/plugin/aaa.graph http://124.16.141.130/lxr/watchlist linux-3.8.13 x86_32 http://124.16.141.130/lxr/call real
 
-ruby 20140623-callgraph-sql_e-服务器测试脚本.rb -2 /home/jdi/ysx/new/ -d mm -o /home/jdi/ysx/plugin/ccc.graph http://124.16.141.130/lxr/watchlist linux-3.8.13 x86_32 http://124.16.141.130/lxr/call real
+ruby 20140623-callgraph-sql_e-服务器测试脚本.rb -2 /home/jdi/ysx/new/ -d mm -o /home/jdi/ysx/plugin/ccc.graph http://124.16.141.130/lxr/watchlist linux-3.5.4 x86_32 http://124.16.141.130/lxr/call real
 
 ### 二、合并排序两个graph
 ruby graphsort.rb aaa.graph > aaa.grapht
