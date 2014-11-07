@@ -5,7 +5,7 @@ require 'mysql'
 tablename = "diffpath_#{ARGV[1]}_#{ARGV[2]}"
 dbh = Mysql.real_connect("localhost", "cgrtl", "9-410", "callgraph")
 dbh.query("drop table if exists `#{tablename}`")
-dbh.query("create table `#{tablename}`( path char(100),  addline char(10), subline char(10),num char(10))")
+dbh.query("create table `#{tablename}`( path char(100),   subline char(10), addline char(10) , num char(10))")
 
 path = Pathname.new(File.dirname(__FILE__)).realpath
 
