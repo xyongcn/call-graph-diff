@@ -114,6 +114,6 @@ ruby Mkdiff.rb linux-3.8.13 linux-3.5.4
 ruby auto_diff_graph.sh  linux-3.8.13 real x86_32 kernel/ linux-3.5.4
 参数依次为：版本1、真实/虚拟机、平台、路径1、（路径2 可选）、版本2 
 
-ruby auto_diff_graph_new.sh  linux-3.8.13 real x86_32 root linux-3.5.4 /usr/local/share/cg-rtl/lxr/source1/ 0
-ruby auto_diff_graph_new.sh  linux-3.8.13 real x86_32 mm/ linux-3.5.4 /usr/local/share/cg-rtl/lxr/source1/ 1
-参数依次为：版本1、真实/虚拟机、平台、路径1、（路径2 可选）、版本2 、路径、是否放大
+ruby auto_diff_graph_new.sh  linux-3.8.13 real x86_32 root linux-3.5.4 /usr/local/share/cg-rtl/lxr/source1/ 124.16.141.184 0
+ruby auto_diff_graph_new.sh  linux-3.8.13 real x86_32 mm/ linux-3.5.4 /usr/local/share/cg-rtl/lxr/source1/ 124.16.141.184 1
+参数依次为：版本1、真实/虚拟机、平台、路径1、（路径2 可选）、版本2 、路径、diff细节位置参数（未添加）、是否放大
