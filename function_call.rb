@@ -25,6 +25,14 @@ def find(s,b)
 	end 
 	return i 
 end 
+
+def redoURL(str)
+	temp = str[/URL=".*"/]
+	url = str.split('&')
+	newurl = $pre + url[3] + "&path1=\""
+	return str.gsub(temp,newurl)
+end
+
 def finddir(path)
 	if path.index(".c")==nil
 		path = path + "/"
@@ -145,6 +153,7 @@ i=i+1
 end
 $sql_fdifflist = ARGV[2]
 $sql_filedifflist = ARGV[3]
+$pre = ARGV[4]
 #puts $sql_fdifflist,$sql_filedifflist
 compute_max(filename[0],filename[1])
 file0 = File.new(filename[0],"r")
@@ -200,7 +209,7 @@ while (line0.index("->") == nil) && (line1.index("->") == nil)
 			line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#555555\"")
 		end
 
-
+		line0 = redoURL(line0)
 		puts line0
 		line0 = file0.gets
 		line1 = file1.gets
@@ -212,6 +221,7 @@ while (line0.index("->") == nil) && (line1.index("->") == nil)
                 $subline_num = 0
 		$filenum = 0
 		line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=green")
+		line1 = redoURL(line1)
 		puts line1
 		line1 = file1.gets
 	end
@@ -227,6 +237,7 @@ while (line0.index("->") == nil) && (line1.index("->") == nil)
 		$filenum = 0
 		
 		line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=red")
+		line0 = redoURL(line0)
 		puts line0
 		line0 = file0.gets
 	end
@@ -240,6 +251,7 @@ while line0.index("->") == nil
         $subline_num = 0
 	
 	line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=red")
+	line0 = redoURL(line0)
 	puts line0
 	line0 = file0.gets
 end
@@ -250,6 +262,7 @@ while line1.index("->") == nil
 	line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=green")
 	$addline_num = 0
         $subline_num = 0
+	line1 = redoURL(line1)
 	puts line1
 	line1 = file1.gets
 end

@@ -121,8 +121,8 @@ path=[]
 	def Creat.slinenum()	#add from 20131214
 		mydb=Mysql.connect('localhost', 'cgrtl', '9-410', 'callgraph')
           	$sline=$sline.gsub(/ /,"").split("\n")
-puts $sline.size
-puts $sline
+#puts $sline.size
+#puts $sline
 
 		solist_exist_flag=Creat.sqlexist($sql_solist)
 		dolist_exist_flag=Creat.sqlexist($sql_dolist)
@@ -284,7 +284,7 @@ dend=Time.now()
             wfile.puts "digraph #{graphname}{"
             wfile.puts "rankdir=LR"
             wfile.puts "node [style=rounded]"
-####print include nodes color ,URL=callgraph-link,each node with one special color
+####print include nodes color ,URL=callgraph-link,each node with one special color $diff_version
             for j in 1..($number_path)
               for i in $number_in[j-1]..($number_in[j]-1)
                 wfile.print %Q{"#{$sline[i]}"}+"[tooltip="+%Q{"#{$sline[i]} #{$sline_time[i]}"}+"]"+"[label="+%Q{"#{$sline[i]}"}+","
@@ -471,7 +471,7 @@ module Read# read the path from the screen -o output file name -d path -w write 
             $version=a[o_index+3]
             $a_ver=a[o_index+4]
             $url_call=a[o_index+5]
-             $f_vir=a[o_index+6]
+            $f_vir=a[o_index+6]
     a.slice!(o_index,7)
             end
            else

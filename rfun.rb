@@ -15,13 +15,19 @@ end
 
 a=input.split(" ")#a[0] is path ,a[1] is name
 src=a[2]
-v1=a[3]
-v2=a[4]
-outpath=a[5]
-
+outpath=a[3]
+v1=a[4]
+v2=a[5]
+arch=a[6]
 if src.rindex('/')!=(src.length+1)
-	src=src+"/"
+        src=src+"/"
 end
+if outpath.rindex('/')!=(outpath.length+1)
+        outpath=outpath+"/"
+end
+outpath=outpath+"diffe_#{v1}_#{v2}/#{arch}/#{a[1]}.html"
+
+
 path = Pathname.new(File.dirname(__FILE__)).realpath
 puts src+v1+"/"+a[0]
 file1 = File.new(src+v1+"/"+a[0],"r")
@@ -76,3 +82,5 @@ write1.close
 write2.close
 puts line1,line2
 system "diff --unified=50 #{filename1} #{filename2} | python diff2html.py #{line1} #{line2} > #{outpath}"
+system "rm -rf #{filename1}"
+system "rm -rf #{filename2}"

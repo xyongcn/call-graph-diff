@@ -31,7 +31,7 @@ end
 		#	puts "select f_dline,f_rline,f_name from " + tablename + " where f_dline = \"#{path}\""
                         res = dbh.query("select f_dline,f_rline,f_name from " + tablename + " where f_dfile = \"#{path}\"")
                         while row = res.fetch_hash do
-				f_dline = row["f_dline"].to_i
+				f_dline = row["f_dline"].to_i - 1
                                 f_rline = row["f_rline"].to_i
                         	#printf "%d %d\n ",f_dline,f_rline
 			        if line_d >= f_dline and  line_r <= f_rline
