@@ -103,7 +103,7 @@ ruby getFileName.rb zzz_done.svg
 ### 一、将rfun.rb和diff2html.py放入存放源代码的目录下
 格式：ruby rfun.rb 函数路径 函数名 源代码目录 版本1 版本2 输出html路径
 
-ruby rfun.rb arch/x86/kernel/cpu/mcheck/mce.c machine_check_poll /mnt/freenas/source-code /usr/local/share/cg-rtl/lxr/source1/ linux-3.8.13 linux-3.5.4 x86_32
+ruby rfun.rb arch/x86/kernel/cpu/mcheck/mce.c machine_check_poll /mnt/freenas/source-code /usr/local/share/cg-rtl/lxr/source1/ linux-3.8.13 linux-3.5.4
 
 说明：根据路径和函数名取出两个版本的函数部分代码，将其存入临时文件进行diff，结果用diff2html.py显示为html文件。
 
