@@ -126,4 +126,5 @@ ruby auto_diff_graph_new.sh  linux-3.8.13 real x86_32 mm/ linux-3.5.4 /usr/local
 ruby pathdiff.rb arch linux-3.8.13 linux-3.5.4 /usr/local/share/cg-rtl/lxr/source1/
 
 目录路径 版本1 版本2 生成html路径
+
 生成的比较结果在diff_linux-3.8.13_linux-3.5.4文件夹下 函数比较的就是函数名，目录比较的是把路径中/换成_拼接成的。
