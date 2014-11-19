@@ -34,7 +34,7 @@ linux-3.8.13_R_x86_32_DOLIST
 
 ## 部署画图所需的基础：Mkdiff.rb执行下面的步骤
 
-### 一、使用git diff
+### 一、使用diff
 获取源代码下两版本差异，保存至文件con，放置工作目录下
 
 /mnt/freenas/source-code/linux3.8.13
@@ -80,9 +80,9 @@ input2中是＋的内容，也就是后面的版本多的部分
 
 ### 一、生成两个希望比较的graph
 格式：
-ruby 20140623-callgraph-sql_e-服务器测试脚本.rb -2 /home/jdi/ysx/new/ -d mm -o /home/jdi/ysx/plugin/aaa.graph http://124.16.141.130/lxr/watchlist linux-3.8.13 x86_32 http://124.16.141.130/lxr/call real
+ruby 20140623-callgraph-sql_e-服务器测试脚本.rb -2 /usr/local/share/cg-rtl/lxr/source1/ -d mm -o /usr/local/share/cg-rtl/lxr/source1/linux-3.8.13/x86_32/real-mm.graph http://124.16.141.130/lxr/watchlist? linux-3.8.13 x86_32 http://124.16.141.130/lxr/call? real
 
-ruby 20140623-callgraph-sql_e-服务器测试脚本.rb -2 /home/jdi/ysx/new/ -d mm -o /home/jdi/ysx/plugin/ccc.graph http://124.16.141.130/lxr/watchlist linux-3.5.4 x86_32 http://124.16.141.130/lxr/call real
+ruby 20140623-callgraph-sql_e-服务器测试脚本.rb -2 /home/jdi/ysx/new/ -d mm -o /usr/local/share/cg-rtl/lxr/source1/linux-3.5.4/x86_32/real-mm.graph http://124.16.141.130/lxr/watchlist? linux-3.5.4 x86_32 http://124.16.141.130/lxr/call? real
 
 ### 二、合并排序两个graph
 ruby graphsort.rb aaa.graph > aaa.grapht
@@ -108,17 +108,13 @@ ruby rfun.rb arch/x86/kernel/cpu/mcheck/mce.c machine_check_poll /mnt/freenas/so
 说明：根据路径和函数名取出两个版本的函数部分代码，将其存入临时文件进行diff，结果用diff2html.py显示为html文件。
 
 ### 自动部署演示
-ruby Mkdiff.rb linux-3.8.13 linux-3.5.4 /mnt/frenass/source-code
+ruby Mkdiff.rb linux-3.8.13 linux-3.5.4 /mnt/frenass/source-code/
 参数为版本1、版本2
 ### 自动画图
-ruby auto_diff_graph.sh  linux-3.8.13 real x86_32 kernel/ linux-3.5.4
-参数依次为：版本1、真实/虚拟机、平台、路径1、（路径2 可选）、版本2 
 
 ruby auto_diff_graph_new.sh  linux-3.8.13 real x86_32 NULL linux-3.5.4 /usr/local/share/cg-rtl/lxr/source1/ 124.16.141.184 0
 
-ruby auto_diff_graph_new.sh  linux-3.8.13 real x86_32 mm/ linux-3.5.4 /usr/local/share/cg-rtl/lxr/source1/ 124.16.141.184 1
-
-已经改好。
+ruby auto_diff_graph_new.sh  linux-3.8.13 real x86_32 mm/ tools linux-3.5.4 /usr/local/share/cg-rtl/lxr/source1/ 124.16.141.184 1
 
 参数依次为：版本1、真实/虚拟机、平台、路径1、（路径2 可选）、版本2 、路径、diff细节位置参数（未添加）、是否放大
 
