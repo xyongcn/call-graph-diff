@@ -108,7 +108,7 @@ ruby rfun.rb arch/x86/kernel/cpu/mcheck/mce.c machine_check_poll /mnt/freenas/so
 说明：根据路径和函数名取出两个版本的函数部分代码，将其存入临时文件进行diff，结果用diff2html.py显示为html文件。
 
 ## 自动部署演示
-ruby Mkdiff.rb  linux-3.8.13 linux-3.5.4 /mnt/freenas/DCG-RTL/source/
+ruby Mkdiff.rb  linux-3.8.13 linux-3.5.4 /mnt/freenas/source_code/
 参数为版本1、版本2、源代码位置
 ## 自动画图
 
