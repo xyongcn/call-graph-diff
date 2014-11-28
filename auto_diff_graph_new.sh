@@ -1,5 +1,5 @@
 #!/bin/bash -e
-cd /home/jdi/ysx
+cd /home/ysxun/call-graph-diff
 INPUTPATH="/usr/local/share/cg-rtl/lxr/source1/"
 zoom=0
 DIFF=""
@@ -33,7 +33,7 @@ then
 	fi
 	VER2=$5
 	INPUTPATH=$6
-	DIFF=$7
+	DIFF=$7"/diffe?"
 	Further=$7"/call?"
 
 	OUTPUTPATH1=$INPUTPATH$VER1"/"$A"/"$F"-"$P0".graph"
@@ -123,7 +123,7 @@ fi
 out_graph1=$OUTPUTPATH1"t"
 out_graph2=$OUTPUTPATH2"t"
 
-pre="URL=\""$DIFF"/diffe?v="$VER1"&f="$F"&a="$A"&depth="$VER2"&"
+pre="URL=\""$7"/diffe?v="$VER1"&f="$F"&a="$A"&depth="$VER2"&"
 
 
 GRAPHNAME="/usr/local/share/cg-rtl/lxr/source1/diffe_"$VER1"_"$VER2"/"$A"/"$F"-"$P0$P1".graph"

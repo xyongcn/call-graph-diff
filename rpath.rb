@@ -4,7 +4,7 @@ require 'pathname'
 
 
 path = Pathname.new(File.dirname(__FILE__)).realpath
-srcpath = "/mnt/freenas/source-code/#{ARGV[1]}/"
+srcpath = ARGV[1]+"/"
 
 file = File.new(path+ARGV[0],"r")
 add_num=0

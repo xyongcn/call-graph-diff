@@ -28,8 +28,16 @@ end
 
 def redoURL(str)
 	temp = str[/URL=".*"/]
-	url = str.split('&')
+	url = temp.split('&')
 	newurl = $pre + url[3] + "&path1=\""
+	return str.gsub(temp,newurl)
+end
+
+def redoURL2(str)
+	temp = str[/URL=".*?"/]
+	url = temp.split('&')
+	newurl = $pre + url[3] + "&"+url[4]
+	#puts newurl
 	return str.gsub(temp,newurl)
 end
 
@@ -293,6 +301,8 @@ while (line0.index("}") == nil) && (line1.index("}") == nil)
 		else
 			newline = newline.gsub(/color=(black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta)/,"color=black")
 		end
+
+		newline=redoURL2(newline)
 		puts newline
 		line0 = file0.gets
 		line1 = file1.gets
@@ -309,6 +319,8 @@ while (line0.index("}") == nil) && (line1.index("}") == nil)
 		
 		newline = line1.gsub(lab1[1],str)
 		newline = newline.gsub(/color=(black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta)/,"color=green")
+
+		newline=redoURL2(newline)
 		puts newline
 		line1 = file1.gets
 	else
@@ -324,6 +336,8 @@ while (line0.index("}") == nil) && (line1.index("}") == nil)
                 newline = line0.gsub(lab0[1],str)
 
                 newline = newline.gsub(/color=(black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta)/,"color=black")
+
+		newline=redoURL2(newline)
                 puts newline
 		line0 = file0.gets
 	end
@@ -342,6 +356,8 @@ while line0.index("}") == nil
         newline = line0.gsub(lab0[1],str)
 
         newline = newline.gsub(/color=(black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta)/,"color=black")
+
+	newline=redoURL2(newline)
         puts newline
 	line0 = file0.gets
 end
@@ -360,6 +376,8 @@ while line1.index("}") == nil
 		
 	newline = line1.gsub(lab1[1],str)
 	newline = newline.gsub(/color=(black|red|blue|green|lightsalmon4|deepskyblue4|indigo|gray|chocolate|magenta)/,"color=green")
+
+	newline=redoURL2(newline)
 	puts newline
 
 	line1 = file1.gets

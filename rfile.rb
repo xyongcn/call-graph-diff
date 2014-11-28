@@ -22,7 +22,7 @@ end
 		
 		if line.include?"#{ARGV[0]}" and line.include?".c" and !line.include?"arm" and !line.include?"#{ARGV[0]}/drivers" and !line.include?"#{ARGV[0]}/include"
 			flag = 1
-			path1 = line.gsub("/mnt/freenas/source-code/#{ARGV[0]}/","");
+			path1 = line.gsub("#{ARGV[2]}#{ARGV[0]}/","");
 			path1 = path1.gsub("\n","")	
 			path =  path1
 			#puts path 

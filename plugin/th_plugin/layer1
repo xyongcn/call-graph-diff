@@ -33,7 +33,7 @@
          id="jute12"
          font-size="10.00"
          x="28"
-         y="348">specific diff</text>
+         y="348">code diff</text>
 
  </g>
  <g
@@ -52,7 +52,7 @@
          id="jute16"
          font-size="10.00"
          x="28"
-         y="380">comment</text>
+         y="380">zoom</text>
 </g>
 <g
   id="ju13"
@@ -72,5 +72,45 @@
          font-size="10.00"
          x="28"
          y="316">call list</text>
+
+ </g>
+<g
+  id="ju14"
+  visibility="hidden"
+ >
+    <rect
+       style="fill:#AAD5EF;display:inline"
+       id="jure14"
+       width="120"
+       height="32"
+       x="22"
+       y="325" 
+      />
+     <text
+         style="font-size:14px;text-anchor:middle;font-family:'Times Roman,serif'"
+         id="jute14"
+         font-size="10.00"
+         x="28"
+         y="348">further diff</text>
+
+ </g>
+<g
+  id="ju15"
+  visibility="hidden"
+ >
+    <rect
+       style="fill:#DB7093;display:inline"
+       id="jure15"
+       width="120"
+       height="32"
+       x="22"
+       y="357" 
+      />
+     <text
+         style="font-size:14px;text-anchor:middle;font-family:'Times Roman,serif'"
+         id="jute15"
+         font-size="10.00"
+         x="28"
+         y="380">zoom</text>
 
  </g>

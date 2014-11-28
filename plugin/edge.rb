@@ -15,6 +15,12 @@ module Edge
           for i in 0..edgeLines.size-1
             if edgeLines[i].index("<a")
               url = edgeLines[i].scan(regex)
+              url_call= url.to_s
+              url_call=url_call.gsub(/depth=.*?&amp;/,"")
+              url_call=url_call.gsub("diffe","watchlist")
+	      #puts url_call
+	      url_call=url_call.gsub(/path1=.*/,"path1=")
+		
               if url.size > 0
                 edgeLines[i]=edgeLines[i].gsub(" xlink:href=\""+url.to_s+"\"","")
               end
@@ -32,7 +38,9 @@ module Edge
               name = $1
             end
           end
-          url_call = url.to_s.gsub("watchlist","call")
+
+
+          
           onclick = String.class_eval(%Q(#{onclick}))
           edgeLines[locG]= edgeLines[locG].gsub("class=\"edge\"","class=\"edge\" "+onclick)
           edgeLines.each{|i|

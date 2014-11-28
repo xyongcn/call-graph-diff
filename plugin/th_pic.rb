@@ -25,6 +25,7 @@ $code_path=args[2]
 $ver_v=args[3]
 $note_path=args[4]
 $make_zoom="&amp;checkbox1=1" 
+$code_diff="&amp;checkbox2=1"
 
 #加工后所有的节点代码
 $nodeCode = ""
@@ -50,7 +51,7 @@ Svg.hre(args[0])
 # 注意此处参数只能用单引号包裹
 # 其中posY attr1 是从节点元素中读取的值，在Node.hre中处理
 # 一定要严格按照要求写属性语句
-attr_str = "\"onclick=\"+%Q(\"creatmenu(evt\,"+"\#{posX}"+"\,"+"\#{posY}+20"+"\,\'"+"\#{url}"+"\'\,\'"+$code_path+"\#{name}\?v\=#{$ver_v}"+"\'\,\'"+$note_path+"\/\#{name}\(#{$ver_v}\)"+"\'\,\'"+"\#{url}"+$make_zoom+"\'\,\'\#{nodeId}\')\")  \" 
+attr_str = "\"onclick=\"+%Q(\"creatmenu(evt\,"+"\#{posX}"+"\,"+"\#{posY}+20"+"\,\'"+"\#{url}"+"\'\,\'"+"\#{url}"+$code_diff+"\'\,\'"+"\#{url}"+$make_zoom+"\'\,\'\#{nodeId}\')\")  \" 
 onmouseout=\"+%Q(\"mouseout()\") \" 
 onmouseover=\"+%Q(\"mouseover(evt,\#{posX},\#{posY},\'\#{attr1}\',\'\#{attr2}\',\'\#{attr3}\',\'\#{attr4}\')\")"
 for item in 0..$nodeArray.size-1
@@ -61,7 +62,7 @@ end
 # edge
 # attr_str为属性模板语句 此处添加了oncllick一个属性
 
-attr_str = "\"onclick = \"+%Q(\"edgemenu(evt\,"+"\#{posX}"+"\,"+"\#{posY}"+"\,\'"+"\#{url}"+"\'\,\'"+"\#{url_call}"+"\'\,\'"+"\#{url_call}"+$make_zoom+"\'\,\'"+"\#{edgeId}"+"\')\") "
+attr_str = "\"onclick = \"+%Q(\"edgemenu(evt\,"+"\#{posX}"+"\,"+"\#{posY}"+"\,\'"+"\#{url_call}"+"\'\,\'"+"\#{url}"+"\'\,\'"+"\#{url}"+$make_zoom+"\'\,\'"+"\#{edgeId}"+"\')\") "
 for item in 0..$edgeArray.size-1
         $edgeCode += Edge.hre($edgeArray[item], attr_str)
 end
