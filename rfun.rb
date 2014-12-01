@@ -13,36 +13,43 @@ input+=arg+" "
 end
 
 
-a=input.split(" ")#a[0] is path ,a[1] is name
-src=a[2]
-outpath=a[3]
-v1=a[4]
-v2=a[5]
-arch=a[6]
+a=input.split(" ")#a[0] is path ,a[5] is name
+src=a[1]
+outpath=a[2]
+v1=a[3]
+v2=a[4]
+name=a[5]
 if src.rindex('/')!=(src.length+1)
         src=src+"/"
 end
 if outpath.rindex('/')!=(outpath.length+1)
         outpath=outpath+"/"
 end
-outpath=outpath+"diffe_#{v1}_#{v2}/#{arch}/#{a[1]}.html"
+
+if "#{name}-"=="-"
+	puts "ruby pathdiff.rb #{a[0]} #{v1} #{v2} #{outpath}"
+	system "ruby pathdiff.rb #{a[0]} #{v1} #{v2} #{outpath}"
+	exit
+end
+
+outpath=outpath+"diffe_#{v1}_#{v2}/#{name}.html"
 
 
 path = Pathname.new(File.dirname(__FILE__)).realpath
 puts src+v1+"/"+a[0]
 file1 = File.new(src+v1+"/"+a[0],"r")
 file2 = File.new(src+v2+"/"+a[0],"r")
-write1 = File.new(a[1]+"_"+v1,"w+")
-write2 = File.new(a[1]+"_"+v2,"w+")
+write1 = File.new(name+"_"+v1,"w+")
+write2 = File.new(name+"_"+v2,"w+")
 
-filename1 = a[1]+"_"+v1
-filename2 = a[1]+"_"+v2
+filename1 = name+"_"+v1
+filename2 = name+"_"+v2
 
 a[1]=a[1]+"("
 
 while line = file1.gets
 	count1 = count1+1
-	flag = line.include?a[1]
+	flag = line.include?name
 	if flag == true
 		if line1 == 0
 			line1 = count1
@@ -60,7 +67,7 @@ end
 
 while line = file2.gets
 	count2 = count2+1
-	flag = line.include?a[1]
+	flag = line.include?name
 	if flag == true
 		if line2 == 0
 			line2 = count2
