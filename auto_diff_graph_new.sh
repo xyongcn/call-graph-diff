@@ -52,6 +52,7 @@ then
 	then
 		zoom=1
 	fi
+	pre="URL=\""$7"/diffe?v="$VER1"&f="$F"&a="$A"&depth="$VER2"&"
 elif [ $# -eq 9 ]
 then
 	#echo "9"
@@ -83,7 +84,7 @@ then
 	VER2=$6
 	INPUTPATH=$7
 	
-	DIFF=$8
+	DIFF=$8"/diffe?"
 	Further=$8"/call?"
 	Path0=$4
 
@@ -115,6 +116,7 @@ then
 	then
 		zoom=1
 	fi
+	pre="URL=\""$8"/diffe?v="$VER1"&f="$F"&a="$A"&depth="$VER2"&"
 else 
 	echo "wrong count of argv $#"
 	exit 0
@@ -123,11 +125,11 @@ fi
 out_graph1=$OUTPUTPATH1"t"
 out_graph2=$OUTPUTPATH2"t"
 
-pre="URL=\""$7"/diffe?v="$VER1"&f="$F"&a="$A"&depth="$VER2"&"
 
 
-GRAPHNAME="/usr/local/share/cg-rtl/lxr/source1/diffe_"$VER1"_"$VER2"/"$A"/"$F"-"$P0$P1".graph"
-ZOOMNAME="/usr/local/share/cg-rtl/lxr/source1/diffe_"$VER1"_"$VER2"/"$A"/zoom_"$F"-"$P0$P1".graph"
+
+GRAPHNAME=$INPUTPATH"diffe_"$VER1"_"$VER2"/"$A"/"$F"-"$P0$P1".graph"
+ZOOMNAME=$INPUTPATH"diffe_"$VER1"_"$VER2"/"$A"/zoom_"$F"-"$P0$P1".graph"
 
 diffsql="diff_"$VER1"_"$VER2
 diffpathsql="diffpath_"$VER1"_"$VER2
@@ -138,10 +140,10 @@ ruby graphsort.rb $OUTPUTPATH2 > $out_graph2
 ruby function_call.rb $out_graph1 $out_graph2 $diffsql $diffpathsql $pre> $GRAPHNAME
 
 #permision
-rm $out_graph1
-rm $out_graph2
-rm $OUTPUTPATH1
-rm $OUTPUTPATH2
+#rm $out_graph1
+#rm $out_graph2
+#rm $OUTPUTPATH1
+#rm $OUTPUTPATH2
 
 if [ $zoom -eq 1 ]
 then

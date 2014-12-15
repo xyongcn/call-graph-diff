@@ -27,16 +27,16 @@ if outpath.rindex('/')!=(outpath.length+1)
 end
 
 if "#{name}-"=="-"
-	puts "ruby pathdiff.rb #{a[0]} #{v1} #{v2} #{outpath}"
+#	puts "ruby pathdiff.rb #{a[0]} #{v1} #{v2} #{outpath}"
 	system "ruby pathdiff.rb #{a[0]} #{v1} #{v2} #{outpath}"
 	exit
 end
-
+diffpath=outpath+"diffe_#{v1}_#{v2}/#{name}.diff"
 outpath=outpath+"diffe_#{v1}_#{v2}/#{name}.html"
 
 
 path = Pathname.new(File.dirname(__FILE__)).realpath
-puts src+v1+"/"+a[0]
+#puts src+v1+"/"+a[0]
 file1 = File.new(src+v1+"/"+a[0],"r")
 file2 = File.new(src+v2+"/"+a[0],"r")
 write1 = File.new(name+"_"+v1,"w+")
@@ -88,6 +88,10 @@ file2.close
 write1.close
 write2.close
 puts line1,line2
-system "diff --unified=50 #{filename1} #{filename2} | python diff2html.py #{line1} #{line2} > #{outpath}"
-system "rm -rf #{filename1}"
-system "rm -rf #{filename2}"
+system "diff --unified=50 #{filename1} #{filename2} > #{diffpath}"
+if File.new(diffpath).stat.zero?
+	diffpath=filename1
+end
+system "cat #{diffpath} | python diff2html.py #{line1} #{line2} > #{outpath}"
+#system "rm -rf #{filename1}"
+#system "rm -rf #{filename2}"

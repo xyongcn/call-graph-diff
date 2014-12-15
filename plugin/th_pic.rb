@@ -25,7 +25,7 @@ $code_path=args[2]
 $ver_v=args[3]
 $note_path=args[4]
 $make_zoom="&amp;checkbox1=1" 
-$code_diff="&amp;checkbox2=1"
+$code_diff="&amp;code=1"
 
 #加工后所有的节点代码
 $nodeCode = ""
@@ -55,7 +55,7 @@ attr_str = "\"onclick=\"+%Q(\"creatmenu(evt\,"+"\#{posX}"+"\,"+"\#{posY}+20"+"\,
 onmouseout=\"+%Q(\"mouseout()\") \" 
 onmouseover=\"+%Q(\"mouseover(evt,\#{posX},\#{posY},\'\#{attr1}\',\'\#{attr2}\',\'\#{attr3}\',\'\#{attr4}\')\")"
 for item in 0..$nodeArray.size-1
-	print "#{$nodeArray[item]}"
+#	print "#{$nodeArray[item]}"
         $nodeCode += Node.hre($nodeArray[item], attr_str)#把属性算命的放进node中处理，节点内容来自分解后的svg
 end
 
@@ -69,7 +69,8 @@ end
 
 # 读入scriptX文件内容，这里读入了两个script文件 script1和script3
 # deal with script file
-puts $polygon
+#puts $polygon
+
 eeline=$polygon.split(",")
 XXXXA=eeline[2].split(" ")[0].to_i
 XXXXB=eeline[2].split(" ")[1].to_i

@@ -45,7 +45,7 @@ write.syswrite "				<td>Path</td><td>Subline</td><td>Addline</td>"
 write.syswrite "			</tr>"
 
 
-res = dbh.query("select subline,addline,path from  `#{tablename}`  where path like '#{Path1}/%' or path = '#{Path1}'")
+res = dbh.query("select subline,addline,path from  `#{tablename}`  where path like '#{Path1}/%' or path = '#{Path1}' or path = '#{Path1}/'")
 res.each_hash do |row|
 	
 	path=row["path"]

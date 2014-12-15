@@ -39,6 +39,8 @@ module Node
             if nodeLines[i].index("<title>")
               /\<title\>([\s\S]*?)\</.match(nodeLines[i])
               name = $1
+	      nodeLines[i]=nodeLines[i].gsub(/\<title\>.*\</,"\<title\>\<")
+
             end
             if nodeLines[i].index("xlink:title")
               /xlink:title=\"([\s\S]*?)\"/.match(nodeLines[i])
