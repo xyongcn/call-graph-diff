@@ -51,9 +51,9 @@ res.each_hash do |row|
 	path=row["path"]
 	flag=0
 	subcount=find(path,"/")
-	if path == Path1
+	if path == Path1 or path == "#{Path1}/"
 		flag=1
-	elsif subcount ==count
+	elsif subcount ==count or subcount ==count+1
 		flag=1
 	elsif subcount == count+2 && path.rindex("/")==path.length-1
 		flag=1
