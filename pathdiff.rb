@@ -37,12 +37,12 @@ count=find(Path1,"/")
 #puts count
 #path end no "/"
 
-write.syswrite "<html>"
-write.syswrite "	<body>"
-write.syswrite "		<table>"
-write.syswrite "			<tr>"
-write.syswrite "				<td>Path</td><td>Subline</td><td>Addline</td>"
-write.syswrite "			</tr>"
+write.syswrite "<html>\n"
+write.syswrite "	<body>\n"
+write.syswrite "		<table border=\"1\">\n"
+write.syswrite "			<tr>\n"
+write.syswrite "				<td>Path</td><td>Subline</td><td>Addline</td>\n"
+write.syswrite "			</tr>\n"
 
 
 res = dbh.query("select subline,addline,path from  `#{tablename}`  where path like '#{Path1}/%' or path = '#{Path1}' or path = '#{Path1}/'")
@@ -59,16 +59,16 @@ res.each_hash do |row|
 		flag=1
 	end
 	if flag==1
-		write.syswrite "			<tr>"
+		write.syswrite "			<tr>\n"
 		sub=row["subline"]
 		add=row["addline"]
-		write.syswrite "				<td>#{path}</td><td>#{sub}</td><td>#{add}</td>"
-		write.syswrite "			</tr>"
+		write.syswrite "				<td>#{path}</td><td>#{sub}</td><td>#{add}</td>\n"
+		write.syswrite "			</tr>\n"
 	end
 end
 
-write.syswrite "		</table>"
-write.syswrite "	</body>"
-write.syswrite "</html>"
+write.syswrite "		</table>\n"
+write.syswrite "	</body>\n"
+write.syswrite "</html>\n"
 
 write.close
