@@ -100,7 +100,7 @@ ruby getFileName.rb zzz_done.svg
 
 ## 比较函数内容
 
-### 一、将rfun.rb和diff2html.py放入存放源代码的目录下
+### 一、将rfun.rb、pathdiff.rb、和diff2html.py放入lxr的目录下
 格式：ruby rfun.rb 函数路径 函数名 源代码目录 版本1 版本2 输出html路径
 
 ruby rfun.rb arch/x86/kernel/cpu/mcheck/mce.c /mnt/freenas/source_code /usr/local/share/cg-rtl/lxr/source1/ linux-3.8.13 linux-3.5.4 machine_check_poll
