@@ -1,4 +1,4 @@
-require 'find'
+require	'find'
 require 'pathname'
 
 input=""
@@ -46,10 +46,14 @@ filename1 = name+"_"+v1
 filename2 = name+"_"+v2
 
 a[1]=a[1]+"("
+name=name+"("
 
 while line = file1.gets
 	count1 = count1+1
 	if line.include?";"
+		next
+	end
+	if line[0,1] == " " or line[0,1] == "\t"
 		next
 	end
 	flag = line.include?name
@@ -71,6 +75,9 @@ end
 while line = file2.gets
 	count2 = count2+1
 	if line.include?";"
+                next
+        end
+	if line[0,1] == " " or line[0,1] == "\t"
                 next
         end
 	flag = line.include?name
