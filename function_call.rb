@@ -223,12 +223,33 @@ while (line0.index("->") == nil) && (line1.index("->") == nil)
 		line1 = file1.gets
 	elsif (temp0[0] <=> temp1[0]) > 0 #把后一个版本的顶点值换掉
 		func(temp1[0])
-		$percent = 1
-		line1 = modify_node(line1)
+		if($addline_num.to_i > 0 && $subline_num.to_i > 0 )
+			$percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
+			if $percent > 1.0
+                                $percent = 1.0
+                        end
+			line1 = modify_node(line1)
+			if $percent < ($maxpercent * 0.2)
+                	        line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#DDDDDD\"")
+                	elsif $percent < ($maxpercent * 0.4)
+                	        line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#BBBBBB\"")
+                	elsif $percent < ($maxpercent * 0.6)
+                	        line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#999999\"")
+                	elsif $percent < ($maxpercent * 0.8)
+                	        line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#777777\"")
+                	else
+                	        line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#555555\"")
+                	end
+		
+		else
+			$percent = 1
+                	line1 = modify_node(line1)
+			line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=green")
+		end
 		$addline_num = 0
                 $subline_num = 0
 		$filenum = 0
-		line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=green")
+		
 		line1 = redoURL(line1)
 		puts line1
 		line1 = file1.gets
@@ -236,15 +257,37 @@ while (line0.index("->") == nil) && (line1.index("->") == nil)
 	
 	if (temp0[0] <=> temp1[0]) < 0
 		func(temp0[0])
-		$percent = 1
-                
 		
-		line0 = modify_node(line0)
+		if($addline_num.to_i > 0 && $subline_num.to_i > 0)
+                        $percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
+                        if $percent > 1.0
+                                $percent = 1.0
+                        end
+
+                        line0 = modify_node(line0)
+                        if $percent < ($maxpercent * 0.2)
+                                line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#DDDDDD\"")
+                        elsif $percent < ($maxpercent * 0.4)
+                                line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#BBBBBB\"")
+                        elsif $percent < ($maxpercent * 0.6)
+                                line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#999999\"")
+                        elsif $percent < ($maxpercent * 0.8)
+                                line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#777777\"")
+                        else
+                                line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#555555\"")
+                        end
+
+                else
+                        line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=red")
+                        $percent = 1.0
+                        line0 = modify_node(line0)
+                end
+
 		$addline_num = 0
                 $subline_num = 0
 		$filenum = 0
 		
-		line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=red")
+		
 		line0 = redoURL(line0)
 		puts line0
 		line0 = file0.gets
@@ -253,21 +296,69 @@ end
 
 while line0.index("->") == nil
 	func(temp0[0])
-	$percent = 1 
-	line0 = modify_node(line0)
+	 
+	
+
+		if($addline_num.to_i > 0 && $subline_num.to_i > 0)
+                        $percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
+                        if $percent > 1.0
+                                $percent = 1.0
+                        end
+        		
+			line0 = modify_node(line0)        
+                        if $percent < ($maxpercent * 0.2)
+                                line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#DDDDDD\"")
+                        elsif $percent < ($maxpercent * 0.4)
+                                line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#BBBBBB\"")
+                        elsif $percent < ($maxpercent * 0.6)
+                                line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#999999\"")
+                        elsif $percent < ($maxpercent * 0.8)
+                                line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#777777\"")
+                        else
+                                line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#555555\"")
+                        end
+
+                else
+                        line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=red")
+			$percent = 1.0
+			line0 = modify_node(line0)
+                end
+
 	$addline_num = 0
         $subline_num = 0
 	
-	line0 = line0.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=red")
+	
 	line0 = redoURL(line0)
 	puts line0
 	line0 = file0.gets
 end
 while line1.index("->") == nil
 	func(temp1[0])
-	$percent = 1
-	line1 = modify_node(line1)
-	line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=green")
+	if($addline_num.to_i > 0 && $subline_num.to_i > 0 )
+                $percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
+                if $percent > 1.0
+                                $percent = 1.0
+                end
+		line1 = modify_node(line1)
+                if $percent < ($maxpercent * 0.2)
+                       line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#DDDDDD\"")
+                elsif $percent < ($maxpercent * 0.4)
+                       line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#BBBBBB\"")
+                elsif $percent < ($maxpercent * 0.6)
+                       line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#999999\"")
+                elsif $percent < ($maxpercent * 0.8)
+                       line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#777777\"")
+                else
+                       line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=\"#555555\"")
+                end
+
+        else
+		$percent = 1
+	        line1 = modify_node(line1)
+
+                line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=green")
+        end
+	
 	$addline_num = 0
         $subline_num = 0
 	line1 = redoURL(line1)

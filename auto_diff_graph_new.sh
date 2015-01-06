@@ -140,8 +140,8 @@ ruby graphsort.rb $OUTPUTPATH2 > $out_graph2
 ruby function_call.rb $out_graph1 $out_graph2 $diffsql $diffpathsql $pre> $GRAPHNAME
 
 #permision
-#rm $out_graph1
-#rm $out_graph2
+rm $out_graph1
+rm $out_graph2
 #rm $OUTPUTPATH1
 #rm $OUTPUTPATH2
 

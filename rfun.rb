@@ -49,6 +49,9 @@ a[1]=a[1]+"("
 
 while line = file1.gets
 	count1 = count1+1
+	if line.include?";"
+		next
+	end
 	flag = line.include?name
 	if flag == true
 		if line1 == 0
@@ -67,6 +70,9 @@ end
 
 while line = file2.gets
 	count2 = count2+1
+	if line.include?";"
+                next
+        end
 	flag = line.include?name
 	if flag == true
 		if line2 == 0
