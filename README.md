@@ -100,6 +100,8 @@ ruby getFileName.rb zzz_done.svg
 
 ## 比较函数内容
 
+在目标输出路径要建立“diff_linux-3.8.13_linux-3.5.4/x86_32/”  格式的文件夹，不然会显示没有此文件夹
+
 ### 一、将rfun.rb、pathdiff.rb、和diff2html.py放入lxr的目录下
 格式：ruby rfun.rb 函数路径 函数名 源代码目录 版本1 版本2 输出html路径
 
