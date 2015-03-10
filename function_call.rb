@@ -251,10 +251,8 @@ while (line0.index("->") == nil) && (line1.index("->") == nil)
                 	line1 = modify_node(line1)
 			line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=green")
 		end
-=======
 		$percent = 1
 		line1 = modify_node(line1)
->>>>>>> 8db05f08e7a5bc16d07615ebeed1c9d95394d062
 		$addline_num = 0
                 $subline_num = 0
 		$filenum = 0
@@ -269,7 +267,6 @@ while (line0.index("->") == nil) && (line1.index("->") == nil)
 		$percent = 1
                 
 		
-<<<<<<< HEAD
 		if($addline_num.to_i > 0 && $subline_num.to_i > 0)
                         $percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
                         if $percent > 1.0
@@ -299,9 +296,7 @@ while (line0.index("->") == nil) && (line1.index("->") == nil)
                         line0 = modify_node(line0)
                 end
 
-=======
 		line0 = modify_node(line0)
->>>>>>> 8db05f08e7a5bc16d07615ebeed1c9d95394d062
 		$addline_num = 0
                 $subline_num = 0
 		$filenum = 0
@@ -315,7 +310,6 @@ end
 
 while line0.index("->") == nil
 	func(temp0[0])
-<<<<<<< HEAD
 	 
 	
 
@@ -348,10 +342,8 @@ while line0.index("->") == nil
 			line0 = modify_node(line0)
                 end
 
-=======
 	$percent = 1 
 	line0 = modify_node(line0)
->>>>>>> 8db05f08e7a5bc16d07615ebeed1c9d95394d062
 	$addline_num = 0
         $subline_num = 0
 	
@@ -362,7 +354,6 @@ while line0.index("->") == nil
 end
 while line1.index("->") == nil
 	func(temp1[0])
-<<<<<<< HEAD
 	if($addline_num.to_i > 0 && $subline_num.to_i > 0 )
                 $percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
                 if $percent > 1.0
@@ -392,11 +383,9 @@ while line1.index("->") == nil
                 line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=green")
         end
 	
-=======
 	$percent = 1
 	line1 = modify_node(line1)
 	line1 = line1.gsub(/color=(cyan1|orchid2|gray|red|green|yellow|thistle|lightcoral|cyan4|orange)/,"color=green")
->>>>>>> 8db05f08e7a5bc16d07615ebeed1c9d95394d062
 	$addline_num = 0
         $subline_num = 0
 	line1 = redoURL(line1)
