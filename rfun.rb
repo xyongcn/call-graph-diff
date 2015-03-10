@@ -63,56 +63,41 @@ res = dbh.query("select f_dline,f_rline,f_name from " + tablename2 + " where f_d
                                 frline2 = row["f_rline"].to_i
                         end
 
-puts fdline1,fdline2
-=======
-a[1]=a[1]+"("
+#puts fdline1,fdline2
+#a[1]=a[1]+"("
 
-
-zflag=0
+flag=false
 while line = file1.gets
 	count1 = count1+1
 	
 	if count1 == fdline1	
-		zflag = 1
+		flag = true#line.include?name
+
+	end
+	if flag == true
+		write1.syswrite(line)
 	end
 	if count1 == frline1
-		zflag = -1
-	end
-	if zflag == 1 or zflag == -1
-	flag = line.include?name
-	if flag == true
-		if line1 == 0
-			line1 = count1
-		end
-		write1.syswrite(line);
-	end
-	if zflag == -1
 		break
 	end
-	
+
 end
-zflag=0
+flag=false
 while line = file2.gets
 	count2 = count2+1
-	if count2 == fdline2
-                zflag = 1
+
+        if count2 == fdline2
+                flag = true#line.include?name
         end
-	if count2 == frline2
-                zflag = -1
+        if flag == true
+                write2.syswrite(line)
         end
-	
-	if zflag == 1 or zflag == -1
-	flag = line.include?name
-	if flag == true
-		if line2 == 0
-			line2 = count2
-		end
-		write2.syswrite(line);
-	end
-	if zflag == -1
+
+        if count2 == frline2
                 break
         end
 end
+
 if (fdline1 == nil)
 	fdline1 = 0
 else
@@ -137,11 +122,6 @@ end
 system "cat #{diffpath} | python diff2html.py #{fdline1} #{fdline2} > #{outpath}"
 #system "cat #{diffpath} | python diff2html.py 0 0 > #{outpath}"
 
-system "rm -rf #{filename1}"
-system "rm -rf #{filename2}"
-line1=line1-1
-line2=line2-1
-
-system "cat #{diffpath} | python diff2html.py #{line1} #{line2} > #{outpath}"
 #system "rm -rf #{filename1}"
 #system "rm -rf #{filename2}"
+
