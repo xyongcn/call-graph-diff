@@ -1,5 +1,8 @@
 require 'find'
 require 'pathname'
+require "mysql"
+
+dbh = Mysql.real_connect("localhost", "cgrtl", "9-410", "callgraph")
 
 input=""
 path =""
@@ -45,56 +48,111 @@ write2 = File.new(name+"_"+v2,"w+")
 filename1 = name+"_"+v1
 filename2 = name+"_"+v2
 
-a[1]=a[1]+"("
+<<<<<<< HEAD
+tablename1="`#{v1}_R_x86_32_FDLIST`"
+tablename2="`#{v2}_R_x86_32_FDLIST`"
 
+res = dbh.query("select f_dline,f_rline,f_name from " + tablename1 + " where f_dfile = \"#{a[0]}\" and f_name = \"#{name}\"")
+                        while row = res.fetch_hash do
+                                fdline1 = row["f_dline"].to_i
+                                frline1 = row["f_rline"].to_i
+			end
+
+res = dbh.query("select f_dline,f_rline,f_name from " + tablename2 + " where f_dfile = \"#{a[0]}\" and f_name = \"#{name}\"")
+                        while row = res.fetch_hash do
+                                fdline2 = row["f_dline"].to_i
+                                frline2 = row["f_rline"].to_i
+                        end
+
+puts fdline1,fdline2
+=======
+a[1]=a[1]+"("
+>>>>>>> 8db05f08e7a5bc16d07615ebeed1c9d95394d062
+
+
+zflag=0
 while line = file1.gets
 	count1 = count1+1
+<<<<<<< HEAD
+	
+	if count1 == fdline1	
+		zflag = 1
+	end
+	if count1 == frline1
+		zflag = -1
+	end
+	if zflag == 1 or zflag == -1
+=======
 	flag = line.include?name
 	if flag == true
 		if line1 == 0
 			line1 = count1
 		end
+>>>>>>> 8db05f08e7a5bc16d07615ebeed1c9d95394d062
 		write1.syswrite(line);
-		while code = file1.gets
-			write1.syswrite(code);
-			if code[0,1] == "}"
-				break 
-			end
-		end
+	end
+	if zflag == -1
 		break
 	end
+	
 end
-
+zflag=0
 while line = file2.gets
 	count2 = count2+1
+<<<<<<< HEAD
+	if count2 == fdline2
+                zflag = 1
+        end
+	if count2 == frline2
+                zflag = -1
+        end
+	
+	if zflag == 1 or zflag == -1
+=======
 	flag = line.include?name
 	if flag == true
 		if line2 == 0
 			line2 = count2
 		end
+>>>>>>> 8db05f08e7a5bc16d07615ebeed1c9d95394d062
 		write2.syswrite(line);
-		while code = file2.gets
-			write2.syswrite(code);
-			if code[0,1] == "}"
-				break 
-			end
-		end
-		break
 	end
+	if zflag == -1
+                break
+        end
 end
+if (fdline1 == nil)
+	fdline1 = 0
+else
+fdline1=fdline1-1
+end
+if (fdline2 == nil)
+        fdline2 = 0
+else
+fdline2=fdline2-1
+end
+
 
 file1.close
 file2.close
 write1.close
 write2.close
-puts line1,line2
+
 system "diff --unified=50 #{filename1} #{filename2} > #{diffpath}"
 if File.new(diffpath).stat.zero?
 	diffpath=filename1
 end
+<<<<<<< HEAD
+system "cat #{diffpath} | python diff2html.py #{fdline1} #{fdline2} > #{outpath}"
+#system "cat #{diffpath} | python diff2html.py 0 0 > #{outpath}"
+
+system "rm -rf #{filename1}"
+system "rm -rf #{filename2}"
+=======
 line1=line1-1
 line2=line2-1
 
 system "cat #{diffpath} | python diff2html.py #{line1} #{line2} > #{outpath}"
 #system "rm -rf #{filename1}"
 #system "rm -rf #{filename2}"
+>>>>>>> 8db05f08e7a5bc16d07615ebeed1c9d95394d062
