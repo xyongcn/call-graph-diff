@@ -29,14 +29,14 @@ end
 		elsif flag == 1 and !line.include?"#{ARGV[0]}"
                         tmp1 = line[1,15].split(",")
                         line_d = tmp1[0].to_i + 3
-                        line_r = line_d + tmp1[1].to_i - 3
+                        line_r = line_d + tmp1[1].to_i - 4
                         varnum = file.gets.to_i
                         #printf "%s %d %d\n",path,line_d,line_r
                         #数据库检索
 			#puts "select f_dline,f_rline,f_name from " + tablename + " where f_dfile = \"#{path}\""
                         res = dbh.query("select f_dline,f_rline,f_name from " + tablename + " where f_dfile = \"#{path}\"")
                         while row = res.fetch_hash do
-				f_dline = row["f_dline"].to_i - 1
+				f_dline = row["f_dline"].to_i 
 				f_rline = row["f_rline"].to_i
                         	#printf "%d %d\n ",f_dline,f_rline
 			        if line_d >= f_dline and  line_r <= f_rline

@@ -1,4 +1,4 @@
-require	'find'
+require 'find'
 require 'pathname'
 
 input=""
@@ -46,16 +46,9 @@ filename1 = name+"_"+v1
 filename2 = name+"_"+v2
 
 a[1]=a[1]+"("
-name=name+"("
 
 while line = file1.gets
 	count1 = count1+1
-	if line.include?";"
-		next
-	end
-	if line[0,1] == " " or line[0,1] == "\t"
-		next
-	end
 	flag = line.include?name
 	if flag == true
 		if line1 == 0
@@ -74,12 +67,6 @@ end
 
 while line = file2.gets
 	count2 = count2+1
-	if line.include?";"
-                next
-        end
-	if line[0,1] == " " or line[0,1] == "\t"
-                next
-        end
 	flag = line.include?name
 	if flag == true
 		if line2 == 0
@@ -105,6 +92,9 @@ system "diff --unified=50 #{filename1} #{filename2} > #{diffpath}"
 if File.new(diffpath).stat.zero?
 	diffpath=filename1
 end
+line1=line1-1
+line2=line2-1
+
 system "cat #{diffpath} | python diff2html.py #{line1} #{line2} > #{outpath}"
 #system "rm -rf #{filename1}"
 #system "rm -rf #{filename2}"
