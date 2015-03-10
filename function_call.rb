@@ -223,7 +223,6 @@ while (line0.index("->") == nil) && (line1.index("->") == nil)
 		line1 = file1.gets
 	elsif (temp0[0] <=> temp1[0]) > 0 #把后一个版本的顶点值换掉
 		func(temp1[0])
-<<<<<<< HEAD
 		if($addline_num.to_i > 0 && $subline_num.to_i > 0 )
 			$percent = ($addline_num.to_i + $subline_num.to_i)/$filenum.to_f
 			if $percent > 1.0

@@ -48,6 +48,7 @@ write2 = File.new(name+"_"+v2,"w+")
 filename1 = name+"_"+v1
 filename2 = name+"_"+v2
 
+<<<<<<< HEAD
 tablename1="`#{v1}_R_x86_32_FDLIST`"
 tablename2="`#{v2}_R_x86_32_FDLIST`"
 
@@ -64,12 +65,15 @@ res = dbh.query("select f_dline,f_rline,f_name from " + tablename2 + " where f_d
                         end
 
 puts fdline1,fdline2
+=======
 a[1]=a[1]+"("
+>>>>>>> 8db05f08e7a5bc16d07615ebeed1c9d95394d062
 
 
 zflag=0
 while line = file1.gets
 	count1 = count1+1
+<<<<<<< HEAD
 	
 	if count1 == fdline1	
 		zflag = 1
@@ -78,11 +82,13 @@ while line = file1.gets
 		zflag = -1
 	end
 	if zflag == 1 or zflag == -1
+=======
 	flag = line.include?name
 	if flag == true
 		if line1 == 0
 			line1 = count1
 		end
+>>>>>>> 8db05f08e7a5bc16d07615ebeed1c9d95394d062
 		write1.syswrite(line);
 	end
 	if zflag == -1
@@ -93,6 +99,7 @@ end
 zflag=0
 while line = file2.gets
 	count2 = count2+1
+<<<<<<< HEAD
 	if count2 == fdline2
                 zflag = 1
         end
@@ -101,11 +108,13 @@ while line = file2.gets
         end
 	
 	if zflag == 1 or zflag == -1
+=======
 	flag = line.include?name
 	if flag == true
 		if line2 == 0
 			line2 = count2
 		end
+>>>>>>> 8db05f08e7a5bc16d07615ebeed1c9d95394d062
 		write2.syswrite(line);
 	end
 	if zflag == -1
@@ -133,6 +142,7 @@ system "diff --unified=50 #{filename1} #{filename2} > #{diffpath}"
 if File.new(diffpath).stat.zero?
 	diffpath=filename1
 end
+<<<<<<< HEAD
 system "cat #{diffpath} | python diff2html.py #{fdline1} #{fdline2} > #{outpath}"
 #system "cat #{diffpath} | python diff2html.py 0 0 > #{outpath}"
 
@@ -145,3 +155,4 @@ line2=line2-1
 system "cat #{diffpath} | python diff2html.py #{line1} #{line2} > #{outpath}"
 #system "rm -rf #{filename1}"
 #system "rm -rf #{filename2}"
+>>>>>>> 8db05f08e7a5bc16d07615ebeed1c9d95394d062
