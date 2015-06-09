@@ -63,13 +63,19 @@ my $dbdir;
 
 #printf("1111".$sh_ruby_source);
 
-my $temp_ver;
-if ($che1 lt $ver_v)
-{
-        $temp_ver = $ver_v;
-        $ver_v = $che1;
-        $che1 = $temp_ver;
-}
+
+##version exchange
+#my $temp_ver;
+#if ($che1 lt $ver_v)
+#{
+#        $temp_ver = $ver_v;
+#        $ver_v = $che1;
+#        $che1 = $temp_ver;
+#}
+
+
+
+
 #      $temp_sh=sprintf($Conf->htmlhead);
 #      $temp_out=$temp_sh;
 #    $cache_filename=$temp_sh;
