@@ -19,7 +19,7 @@ module Edge
               url_call=url_call.gsub(/depth=.*?&amp;/,"")
               url_call=url_call.gsub("diffe","watchlist")
 	      #puts url_call
-	      url_call=url_call.gsub(/path1=.*/,"path1=")
+	      #url_call=url_call.gsub(/path1=.*/,"path1=")
 		
               if url.size > 0
                 edgeLines[i]=edgeLines[i].gsub(" xlink:href=\""+url.to_s+"\"","")
